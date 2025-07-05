@@ -4,42 +4,15 @@ import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import ru.yandex.practicum.clients.Client;
+import ru.yandex.practicum.base.TestBase;
 import ru.yandex.practicum.constants.ErrorMessages;
-import ru.yandex.practicum.models.auth.UserRegisterRequest;
 import ru.yandex.practicum.models.auth.UserRegisterResponse;
 import ru.yandex.practicum.models.errors.ErrorResponse;
-import ru.yandex.practicum.utils.DataHelper;
 
 import static org.junit.Assert.*;
 
-public class CreateUserTests {
-
-    private DataHelper dataHelper;
-    private Client client;
-    private UserRegisterRequest user;
-    private UserRegisterResponse registeredUser;
-
-    @Before
-    public void setUp() {
-        this.dataHelper = new DataHelper();
-        this.client = new Client();
-        this.user = this.dataHelper.createRandomUser();
-    }
-
-    @After
-    public void tearDown() {
-        try {
-            String token = this.registeredUser.getAccessToken(); //TODO: возможно надо обработать в условии
-            this.client.deleteUser(token);
-        } catch (Exception e) {
-            System.out.println("Не удалось удалить пользователя: " + e);
-        }
-    }
-
+public class CreateUserTests extends TestBase {
     @Test
     @DisplayName("Проверка создания уникального пользователя")
     @Description("Позитивная проверка возможности создания уникального пользователя")
