@@ -21,6 +21,15 @@ public class OrderClient extends ClientBase{
                 .post(API_ORDERS);
     }
 
+    public Response getOrders(String accessToken){
+        return given()
+                .baseUri(QA_STELLARBURGERS_SERVICE)
+                .header("Content-type", "application/json")
+                .header("Authorization", accessToken)
+                .when()
+                .get(API_ORDERS);
+    }
+
     public Response getIngredients() {
         return given()
                 .baseUri(QA_STELLARBURGERS_SERVICE)

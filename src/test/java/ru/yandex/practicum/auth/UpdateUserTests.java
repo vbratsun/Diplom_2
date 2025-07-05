@@ -47,6 +47,6 @@ public class UpdateUserTests extends LoginUserTestBase {
 
         ErrorResponse errorResponse = updatedUserInfoResponse.as(ErrorResponse.class);
         assertFalse("Неверное значение поля 'success'", errorResponse.isSuccess());
-        assertEquals("Неверное значение поля 'message'", ErrorMessages.UPDATE_USER_NOT_AUTHORIZED, errorResponse.getMessage());
+        assertEquals("Неверное значение поля 'message'", ErrorMessages.USER_NOT_AUTHORIZED, errorResponse.getMessage());
     }
 }
