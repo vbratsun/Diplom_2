@@ -1,6 +1,7 @@
 package ru.yandex.practicum.clients;
 
 import io.restassured.response.Response;
+import ru.yandex.practicum.models.auth.UserInfoUpdateRequest;
 import ru.yandex.practicum.models.auth.UserLoginRequest;
 import ru.yandex.practicum.models.auth.UserRegisterRequest;
 
@@ -46,6 +47,16 @@ public class Client {
                 .body(userLoginRequest)
                 .when()
                 .post(API_AUTH_LOGIN);
+    }
+
+    public Response updateUser(String accessToken, UserInfoUpdateRequest userInfoUpdateRequest){
+        return given()
+                .baseUri(QA_STELLARBURGERS_SERVICE)
+                .header("Content-type", "application/json")
+                .header("Authorization", accessToken)
+                .body(userInfoUpdateRequest)
+                .when()
+                .patch(API_AUTH_USER);
     }
 
     public Response getIngredients() {
