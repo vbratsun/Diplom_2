@@ -17,7 +17,7 @@ public class CreateUserTests extends TestBase {
     @DisplayName("Проверка создания уникального пользователя")
     @Description("Позитивная проверка возможности создания уникального пользователя")
     public void userCanBeCreatedSuccessfullyTest() {
-        Response registerUserResponse = this.client.registerUser(this.user);
+        Response registerUserResponse = this.authClient.registerUser(this.user);
         assertEquals("Неверный статус-код", HttpStatus.SC_OK, registerUserResponse.statusCode());
 
         this.registeredUser = registerUserResponse.as(UserRegisterResponse.class);
@@ -29,12 +29,12 @@ public class CreateUserTests extends TestBase {
     @DisplayName("Проверка невозможности создания 2х одинаковых пользователей")
     @Description("Проверка невозможности создания 2х пользователей с одинаковыми данными")
     public void unableToCreateTwoSameUsersTest() {
-        Response registerUserResponse = this.client.registerUser(this.user);
+        Response registerUserResponse = this.authClient.registerUser(this.user);
         registerUserResponse.then().statusCode(HttpStatus.SC_OK);
 
         this.registeredUser = registerUserResponse.as(UserRegisterResponse.class);
 
-        Response sameRegisterUserResponse = this.client.registerUser(this.user);
+        Response sameRegisterUserResponse = this.authClient.registerUser(this.user);
         assertEquals("Неверный статус-код", HttpStatus.SC_FORBIDDEN, sameRegisterUserResponse.statusCode());
 
         ErrorResponse errorResponse = sameRegisterUserResponse.as(ErrorResponse.class);
@@ -46,7 +46,7 @@ public class CreateUserTests extends TestBase {
     @DisplayName("Проверка невозможности создания пользователя без пароля")
     @Description("Проверка невозможности создания пользователя без обязательного поля пароль")
     public void unableToCreateUserWithoutPasswordTest() {
-        Response registerUserResponse = this.client.registerUser(this.dataHelper.createUserWithoutPassword());
+        Response registerUserResponse = this.authClient.registerUser(this.dataHelper.createUserWithoutPassword());
         assertEquals("Неверный статус-код", HttpStatus.SC_FORBIDDEN, registerUserResponse.statusCode());
 
         ErrorResponse errorResponse = registerUserResponse.as(ErrorResponse.class);

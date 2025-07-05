@@ -16,7 +16,7 @@ public class LoginUserTestBase extends TestBase{
     @Before
     public void setUp() {
         super.setUp();
-        this.registerUserResponse = this.client.registerUser(this.user);
+        this.registerUserResponse = this.authClient.registerUser(this.user);
         this.registerUserResponse.then().statusCode(HttpStatus.SC_OK);
         this.registeredUser = registerUserResponse.as(UserRegisterResponse.class);
         this.userLogin = new UserLoginRequest(this.user.getEmail(), this.user.getPassword());

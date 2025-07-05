@@ -19,7 +19,7 @@ public class LoginUserTests extends LoginUserTestBase {
     @DisplayName("Проверка логина пользователя")
     @Description("Позитивная проверка возможности пользователя залогиниться")
     public void  userCanLoginSuccessfullyTest(){
-        Response userLoginResponse = this.client.loginUser(this.userLogin);
+        Response userLoginResponse = this.authClient.loginUser(this.userLogin);
         assertEquals("Неверный статус-код", HttpStatus.SC_OK, userLoginResponse.statusCode());
 
         UserLoginResponse loggedInUser = userLoginResponse.as(UserLoginResponse.class);
@@ -32,7 +32,7 @@ public class LoginUserTests extends LoginUserTestBase {
     @Description("Проверка невозможности залогиниться с неверным логином и паролем")
     public void  unableToLoginWithWrongEmailAndPasswordTest(){
         UserLoginRequest userWithWrongCredentials = new UserLoginRequest(this.user.getEmail()+"asd", this.user.getPassword()+"asd");
-        Response userWithWrongCredentialsResponse = this.client.loginUser(userWithWrongCredentials);
+        Response userWithWrongCredentialsResponse = this.authClient.loginUser(userWithWrongCredentials);
         assertEquals("Неверный статус-код", HttpStatus.SC_UNAUTHORIZED, userWithWrongCredentialsResponse.statusCode());
 
         ErrorResponse errorResponse = userWithWrongCredentialsResponse.as(ErrorResponse.class);
