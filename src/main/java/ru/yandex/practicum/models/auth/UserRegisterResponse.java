@@ -1,12 +1,12 @@
 package ru.yandex.practicum.models.auth;
 
 public class UserRegisterResponse {
-    private String success;
+    private boolean success;
     private String accessToken;
     private String refreshToken;
     private User user;
 
-    public UserRegisterResponse(String success, String accessToken, String refreshToken, User user) {
+    public UserRegisterResponse(boolean success, String accessToken, String refreshToken, User user) {
         this.success = success;
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
@@ -16,11 +16,11 @@ public class UserRegisterResponse {
     public UserRegisterResponse() {
     }
 
-    public String getSuccess() {
+    public boolean isSuccess() {
         return success;
     }
 
-    public void setSuccess(String success) {
+    public void setSuccess(boolean success) {
         this.success = success;
     }
 
