@@ -4,10 +4,12 @@ package ru.yandex.practicum.utils;
 import com.github.javafaker.Faker;
 import ru.yandex.practicum.models.auth.UserInfoUpdateRequest;
 import ru.yandex.practicum.models.auth.UserRegisterRequest;
+import ru.yandex.practicum.models.orders.OrderCreateRequest;
+import ru.yandex.practicum.models.orders.Ingredient;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DataHelper {
     private final Faker faker;
@@ -34,6 +36,13 @@ public class DataHelper {
         String email = generateEmail();
         String name = email;
         return new UserInfoUpdateRequest(email, name);
+    }
+
+    public OrderCreateRequest createOrder(List<Ingredient> ingredients){
+        List<String> ingredientIds = ingredients.stream()
+                .map(Ingredient::get_id)
+                .collect(Collectors.toList());
+        return new OrderCreateRequest(ingredientIds);
     }
 
     private String generateEmail() {

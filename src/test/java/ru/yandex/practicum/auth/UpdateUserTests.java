@@ -4,15 +4,26 @@ import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
+import org.junit.Before;
 import org.junit.Test;
 import ru.yandex.practicum.base.LoginUserTestBase;
 import ru.yandex.practicum.constants.ErrorMessages;
 import ru.yandex.practicum.models.auth.UserInfoResponse;
+import ru.yandex.practicum.models.auth.UserInfoUpdateRequest;
 import ru.yandex.practicum.models.errors.ErrorResponse;
 
 import static org.junit.Assert.*;
 
 public class UpdateUserTests extends LoginUserTestBase {
+
+    protected UserInfoUpdateRequest updatedUserInfo;
+
+    @Override
+    @Before
+    public void setUp() {
+        super.setUp();
+        this.updatedUserInfo = this.dataHelper.createUpdatedUserData();
+    }
 
     @Test
     @DisplayName("Проверка обновления информации пользователя")

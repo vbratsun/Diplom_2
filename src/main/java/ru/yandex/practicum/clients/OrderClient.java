@@ -1,7 +1,7 @@
 package ru.yandex.practicum.clients;
 
 import io.restassured.response.Response;
-import ru.yandex.practicum.models.orders.CreateOrderRequest;
+import ru.yandex.practicum.models.orders.OrderCreateRequest;
 
 import static io.restassured.RestAssured.given;
 
@@ -11,12 +11,12 @@ public class OrderClient extends ClientBase{
     private static final String API_ORDERS = "/api/orders";
     private static final String API_ORDERS_ALL = "/api/orders/all";
 
-    public Response createOrder(String accessToken, CreateOrderRequest createOrderRequest) {
+    public Response createOrder(String accessToken, OrderCreateRequest orderCreateRequest) {
         return given()
                 .baseUri(QA_STELLARBURGERS_SERVICE)
                 .header("Content-type", "application/json")
                 .header("Authorization", accessToken)
-                .body(createOrderRequest)
+                .body(orderCreateRequest)
                 .when()
                 .post(API_ORDERS);
     }
